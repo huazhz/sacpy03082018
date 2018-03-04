@@ -1,18 +1,22 @@
 import boto3
 
+iamclient = boto3.client('iam')
 new_users = ['Bob', 'Sara', 'Fred', 'John', 'Larry']
 python_group = "NoPerms"
 
+group_info = iamclient.get_group(GroupName=python_group)
+print(group_info)
 
-'''
-query IAM for group info
+for user in new_users:
+  iamclient.create_user(UserName=user)
+  iamclient.add_user_to_group(
+    GroupName=python_group,
+    UserName=user
+  )
 
-foreach loop to iter through new_users to create them and
-add them to python_group
-
-
-foreach to remove them and delete them
-
-
-
-'''
+for user in new_users:
+  iamclient.remove_user_from_group(
+    GroupName=python_group,
+    UserName=user
+  )
+  iamclient.delete_user(UserName=user)
