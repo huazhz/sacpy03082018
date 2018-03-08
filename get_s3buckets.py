@@ -20,10 +20,3 @@ s3.meta.client.upload_file('demo.json', bucket_name, 'demo.json')
 client.list_objects(
   Bucket=bucket_name
 )
-'''
-
-sync files with a bucket
-
-remove bucket
-
-'''
